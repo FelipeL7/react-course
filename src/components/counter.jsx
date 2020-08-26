@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 class Counter extends Component {
+  // Here
   state = {
     value: this.props.counter.value,
   };
