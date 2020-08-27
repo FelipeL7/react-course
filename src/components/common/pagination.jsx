@@ -8,20 +8,18 @@ const Pagination = ({ itemsCount, pageSize, onPageChange, currentPage }) => {
   const pages = _.range(1, pagesCount + 1);
 
   return (
-    <nav aria-label="...">
-      <ul className="pagination pagination-sm">
-        {pages.map((page) => (
-          <li
-            key={page}
-            className={page === currentPage ? "page-item active" : "page-item"}
-          >
-            <span onClick={() => onPageChange(page)} className="page-link">
-              {page}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <ul className="pagination">
+      {pages.map((page) => (
+        <li
+          key={page}
+          className={page === currentPage ? "page-item active" : "page-item"}
+        >
+          <span onClick={() => onPageChange(page)} className="page-link">
+            {page}
+          </span>
+        </li>
+      ))}
+    </ul>
   );
 };
 
