@@ -1,6 +1,6 @@
 import React from "react";
 
-const Dashboard = ({ match }) => {
+const Dashboard = () => {
   return (
     <div>
       <h1>Admin Dashboard</h1>
