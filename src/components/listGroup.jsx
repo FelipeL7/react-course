@@ -5,7 +5,7 @@ const ListGroup = ({
   items,
   textProperty,
   valueProperty,
-  selectedGenre,
+  selectedItem,
 }) => {
   return (
     <ul className="list-group clickable">
@@ -14,7 +14,7 @@ const ListGroup = ({
           key={genre[valueProperty]}
           onClick={() => onItemSelect(genre)}
           className={
-            genre === selectedGenre
+            genre === selectedItem
               ? "list-group-item active"
               : "list-group-item"
           }

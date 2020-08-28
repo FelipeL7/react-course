@@ -12,7 +12,6 @@ class Movies extends Component {
     genres: [],
     pageSize: 4,
     currentPage: 1,
-    selectedGenre: "",
     sortColumn: { path: "title", order: "asc" },
   };
 
@@ -47,13 +46,13 @@ class Movies extends Component {
     this.setState({ sortColumn });
   };
 
-  render() {
+  getPageData = () => {
     const {
-      movies: allMovies,
-      currentPage,
       pageSize,
-      selectedGenre,
       sortColumn,
+      currentPage,
+      selectedGenre,
+      movies: allMovies,
     } = this.state;
 
     const filtered =
@@ -61,26 +60,32 @@ class Movies extends Component {
         ? allMovies.filter((m) => m.genre._id === selectedGenre._id)
         : allMovies;
 
-    const count = filtered.length;
-
-    if (count === 0) return <p>There are no movies in the database.</p>;
-
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
 
     const movies = paginate(sorted, currentPage, pageSize);
+
+    return { totalCount: filtered.length, data: movies };
+  };
+
+  render() {
+    const { pageSize, sortColumn, currentPage } = this.state;
+
+    const { totalCount, data: movies } = this.getPageData();
+
+    if (totalCount === 0) return <p>There are no movies in the database.</p>;
 
     return (
       <div className="row">
         <div className="col-3">
           <ListGroup
-            selectedGenre={selectedGenre}
             items={this.state.genres}
+            selectedItem={this.state.selectedGenre}
             onItemSelect={this.handleGenreSelect}
           />
         </div>
 
         <div className="col">
-          <p>Showing {count} movies in the database</p>
+          <p>Showing {totalCount} movies in the database</p>
 
           <MoviesTable
             movies={movies}
@@ -91,7 +96,7 @@ class Movies extends Component {
           />
 
           <Pagination
-            itemsCount={count}
+            itemsCount={totalCount}
             pageSize={pageSize}
             currentPage={currentPage}
             onPageChange={this.handlePageChange}
