@@ -14,7 +14,7 @@ const NavBar = () => {
         <Link to="/posts/2018/06">Posts</Link>
       </li>
       <li>
-        <Link to="/Linkdmin">Admin</Link>
+        <Link to="/admin">Admin</Link>
       </li>
     </ul>
   );
