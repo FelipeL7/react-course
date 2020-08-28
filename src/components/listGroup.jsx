@@ -11,8 +11,8 @@ const ListGroup = ({
     <ul className="list-group clickable">
       {items.map((genre) => (
         <li
-          onClick={() => onItemSelect(genre)}
           key={genre[valueProperty]}
+          onClick={() => onItemSelect(genre)}
           className={
             genre === selectedGenre
               ? "list-group-item active"

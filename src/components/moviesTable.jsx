@@ -1,15 +1,15 @@
 import React from "react";
 import Like from "./common/like";
 
-const MoviesTable = ({ onLike, movies, onDelete }) => {
+const MoviesTable = ({ onLike, movies, onDelete, onSort }) => {
   return (
     <table className="table">
       <thead>
-        <tr>
-          <th>Title</th>
-          <th>Genre</th>
-          <th>Stock</th>
-          <th>Rate</th>
+        <tr className="clickable">
+          <th onClick={() => onSort("title")}>Title</th>
+          <th onClick={() => onSort("genre.name")}>Genre</th>
+          <th onClick={() => onSort("numberInStock")}>Stock</th>
+          <th onClick={() => onSort("dailyRentalRate")}>Rate</th>
           <th />
           <th />
         </tr>
