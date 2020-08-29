@@ -75,34 +75,36 @@ class Movies extends Component {
     if (totalCount === 0) return <p>There are no movies in the database.</p>;
 
     return (
-      <div className="row">
-        <div className="col-3">
-          <ListGroup
-            items={this.state.genres}
-            selectedItem={this.state.selectedGenre}
-            onItemSelect={this.handleGenreSelect}
-          />
+      <React.Fragment>
+        <div className="container-fluid row">
+          <div className="col-3">
+            <ListGroup
+              items={this.state.genres}
+              selectedItem={this.state.selectedGenre}
+              onItemSelect={this.handleGenreSelect}
+            />
+          </div>
+
+          <div className="col">
+            <p>Showing {totalCount} movies in the database</p>
+
+            <MoviesTable
+              movies={movies}
+              sortColumn={sortColumn}
+              onSort={this.handleSort}
+              onLike={this.handleLike}
+              onDelete={this.handleDelete}
+            />
+
+            <Pagination
+              itemsCount={totalCount}
+              pageSize={pageSize}
+              currentPage={currentPage}
+              onPageChange={this.handlePageChange}
+            />
+          </div>
         </div>
-
-        <div className="col">
-          <p>Showing {totalCount} movies in the database</p>
-
-          <MoviesTable
-            movies={movies}
-            sortColumn={sortColumn}
-            onSort={this.handleSort}
-            onLike={this.handleLike}
-            onDelete={this.handleDelete}
-          />
-
-          <Pagination
-            itemsCount={totalCount}
-            pageSize={pageSize}
-            currentPage={currentPage}
-            onPageChange={this.handlePageChange}
-          />
-        </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
