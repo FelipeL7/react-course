@@ -15,13 +15,15 @@ class LoginForm extends Component {
     console.log("Submitted", this.username.current.value);
   };
 
-  handleChange = (e) => {
+  handleChange = ({ currentTarget: input }) => {
+    // Desctruring e.currentTarget and rename it to input
     const account = this.state.account;
-    account.username = e.currentTarget.value;
+    account[input.name] = input.value;
     this.setState({ account });
   };
 
   render() {
+    const { account } = this.state;
     return (
       <React.Fragment>
         <h1>Login</h1>
@@ -30,19 +32,27 @@ class LoginForm extends Component {
             <label htmlFor="username">
               Username
               <input
-                autoFocus
-                ref={this.username}
-                onChange={this.handleChange}
-                value={this.state.account.username}
-                id="username"
                 className="form-control"
+                autoFocus
+                id="username"
+                name="username"
+                ref={this.username}
+                value={account.username}
+                onChange={this.handleChange}
               />
             </label>
           </div>
           <div className="form-group">
             <label htmlFor="password">
               Password
-              <input type="text" id="password" className="form-control" />
+              <input
+                className="form-control"
+                id="password"
+                name="password"
+                type="password"
+                value={account.password}
+                onChange={this.handleChange}
+              />
             </label>
           </div>
           <button onClick={this.handleSubmit} className="btn btn-primary">
