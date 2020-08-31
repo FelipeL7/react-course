@@ -3,35 +3,30 @@ import axios from "axios";
 import "./App.css";
 
 const apiEndpoint = "https://jsonplaceholder.typicode.com/posts";
+
 class App extends Component {
   state = {
     posts: [],
   };
+
   async componentDidMount() {
-    // axios.get to getting the data
     const { data: posts } = await axios.get(apiEndpoint);
     this.setState({ posts });
   }
 
   handleAdd = async () => {
     const obj = { title: "a", body: "b" };
-    // axios.post to create data
     const { data: post } = await axios.post(apiEndpoint, obj);
 
     const posts = [post, ...this.state.posts];
 
-    // console.log("Add", post);
     this.setState({ posts });
   };
 
   handleUpdate = async (post) => {
     post.title = "UPDATED";
 
-    // axios.put method uses the entire object as second argument
     await axios.put(`${apiEndpoint}/${post.id}`, post);
-
-    // axios.patch method send only the propoerties that should be updated as second argument
-    // axios.patch(`${apiEndpoint}/${post.id}`, { title: post.title});
 
     const posts = [...this.state.posts];
     const index = posts.indexOf(post);
@@ -41,9 +36,20 @@ class App extends Component {
   };
 
   handleDelete = async (post) => {
-    await axios.delete(`${apiEndpoint}/${post.id}`);
+    // Optmistic approach
+    const originalPosts = this.state.posts;
+
     const posts = this.state.posts.filter((p) => p.id !== post.id);
+
     this.setState({ posts });
+
+    try {
+      await axios.delete(`${apiEndpoint}/${post.id}`);
+      throw new Error("a");
+    } catch (ex) {
+      alert("Something failed while deleting a post!");
+      this.setState({ posts: originalPosts });
+    }
   };
 
   render() {
