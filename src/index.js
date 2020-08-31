@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+// import logger from './services/logService';
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+
+// logger.init();
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
