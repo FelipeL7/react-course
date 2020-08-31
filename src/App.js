@@ -24,8 +24,20 @@ class App extends Component {
     this.setState({ posts });
   };
 
-  handleUpdate = (post) => {
-    console.log("Update", post);
+  handleUpdate = async (post) => {
+    post.title = "UPDATED";
+
+    // axios.put method uses the entire object as second argument
+    await axios.put(`${apiEndpoint}/${post.id}`, post);
+
+    // axios.patch method send only the propoerties that should be updated as second argument
+    // axios.patch(`${apiEndpoint}/${post.id}`, { title: post.title});
+
+    const posts = [...this.state.posts];
+    const index = posts.indexOf(post);
+
+    posts[index] = { ...post };
+    this.setState({ posts });
   };
 
   handleDelete = (post) => {
