@@ -23,7 +23,7 @@ class Form extends Component {
 
   validateProperty = ({ name, value }) => {
     const obj = { [name]: value };
-    const schema = Joi.object({ [name]: this.schema.extract(name) });
+    const schema = Joi.object({ [name]: this.schema.extract([name]) });
     const result = schema.validate(obj);
     return result.error ? result.error.details[0].message : null;
 
@@ -36,7 +36,6 @@ class Form extends Component {
 
     const errors = this.validate();
     this.setState({ errors: errors || {} });
-
     if (errors) return;
 
     this.doSubmit();
