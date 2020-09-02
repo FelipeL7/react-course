@@ -19,8 +19,6 @@ class TableBody extends Component {
         {data.map((item) => (
           <tr key={item._id}>
             {columns.map((column) => (
-              // <td>{item[column.path]}</td>
-              // Lodash to get nested path object
               <td key={this.createKey(item, column)}>
                 {this.renderCell(item, column)}
               </td>
