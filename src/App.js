@@ -10,6 +10,7 @@ import Customers from "./components/customers";
 import LoginForm from "./components/loginForm";
 import MoviesForm from "./components/movieForm";
 import RegisterForm from "./components/registerForm";
+import ProtectedRoute from "./components/common/protectedRoute";
 
 import auth from "./services/authService";
 
@@ -30,13 +31,7 @@ class App extends Component {
         <NavBar user={user} />
         <main className="container">
           <Switch>
-            <Route
-              path="/movies/:id"
-              render={(props) => {
-                if (!user) return <Redirect to="/login" />;
-                return <MoviesForm {...props} />;
-              }}
-            />
+            <ProtectedRoute path="/movies/:id" component={MoviesForm} />;
             <Route
               path="/movies"
               render={(props) => <Movies {...props} user={this.state.user} />}
