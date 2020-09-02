@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import jwtDecode from "jwt-decode";
 
 import NavBar from "./components/navBar";
 import Logout from "./components/logout";
@@ -12,17 +11,16 @@ import LoginForm from "./components/loginForm";
 import MoviesForm from "./components/movieForm";
 import RegisterForm from "./components/registerForm";
 
+import auth from "./services/authService";
+
 import "./App.css";
 
 class App extends Component {
   state = {};
 
   componentDidMount() {
-    try {
-      const jwt = localStorage.getItem("token");
-      const user = jwtDecode(jwt);
-      this.setState({ user });
-    } catch (ex) {}
+    const user = auth.getCurrentUser();
+    this.setState({ user });
   }
 
   render() {
