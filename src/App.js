@@ -14,9 +14,7 @@ import RegisterForm from "./components/registerForm";
 import "./App.css";
 
 class App extends Component {
-  state = {
-    user: {},
-  };
+  state = {};
 
   componentDidMount() {
     try {
