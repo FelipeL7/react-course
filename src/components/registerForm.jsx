@@ -1,6 +1,7 @@
 import React from "react";
 import Joi from "joi";
 import Form from "./common/form";
+import { register } from "../services/userService";
 
 class RegisterForm extends Form {
   state = {
@@ -17,10 +18,17 @@ class RegisterForm extends Form {
     name: Joi.string().required().label("Name"),
   });
 
-  doSubmit() {
-    // Call the server
-    console.log("Register submitted");
-  }
+  doSubmit = async () => {
+    try {
+      await register(this.state.data);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = this.state.errors;
+        errors.username = ex.response.data;
+        this.setState({ errors });
+      }
+    }
+  };
 
   render() {
     return (
