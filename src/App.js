@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
 import NavBar from "./components/navBar";
+import Logout from "./components/logout";
 import Movies from "./components/movies";
 import Rentals from "./components/rentals";
 import NotFound from "./components/not-found";
@@ -33,6 +34,7 @@ class App extends Component {
             <Route path="/movies/:id" component={MoviesForm} />
             <Route path="/movies" component={Movies} />
             <Route path="/login" component={LoginForm} />
+            <Route path="/logout" component={Logout} />
             <Route path="/customers" component={Customers} />
             <Route path="/rentals" component={Rentals} />
             <Route path="/register" component={RegisterForm} />
